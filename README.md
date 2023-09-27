@@ -53,5 +53,12 @@ docker-compose up --force-recreate
 ```
 - add -d to run in background and on restart
 
-## To keep the containers from starting on reboot
+## Login to Grafana UI
+- ```http://<ip>:3000```
+- Add Loki datasource
+    ```http://loki:3100```
+
+## Point syslog generating devices to <ip>:514 - Enjoy
+
+## DEBUG - To keep the containers from starting on reboot
 docker update --restart=no $(docker ps -a -q)
