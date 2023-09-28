@@ -64,6 +64,7 @@ scrape_configs:
       label_structured_data: yes # whether to add structured data as labels
       labels: # static labels to add to every log entry
         job: "edge_router_syslog"
+        ver: "1.3"
     pipeline_stages:
     - regex:
         expression: '^<(?P<priority>\d+)>(?P<version>\d+) (?P<date>\w+ \d+ \d+:\d+:\d+) (?P<router>\w+) (?P<kernel>\w+) (?P<message_id>\w+): \[(?P<rule>\w+)\]IN=(?P<in>\w+) OUT=(?P<out>\w*) MAC=(?P<mac>[\w:]+) SRC=(?P<src>[\d.]+) DST=(?P<dst>[\d.]+) LEN=(?P<len>\d+) TOS=(?P<tos>[\w.]+) PREC=(?P<prec>[\w.]+) TTL=(?P<ttl>\d+) ID=(?P<id>\d+) PROTO=(?P<proto>\w+) SPT=(?P<spt>\d+) DPT=(?P<dpt>\d+) WINDOW=(?P<window>\d+) RES=(?P<res>[\w.]+) (?P<flags>[A-Z ]+) URGP=(?P<urgp>\d+)$'
