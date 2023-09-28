@@ -97,10 +97,13 @@ scrape_configs:
         # res:
         # flags:
         # urgp: 
-    # relabel_configs: # relabeling rules to apply to the log entries
-    # - source_labels: ['__syslog_message_hostname']
-    #   target_label: 'host'
-    # - source_labels: ['__syslog_message_rule']
-    #   target_label: 'rule'
+    relabel_configs: # relabeling rules to apply to the log entries
+    - source_labels: ['__syslog_message_hostname']
+      target_label: 'host'
+    - source_labels: ['__syslog_message_rule']
+      target_label: 'rule'
+    - source_labels: ['__syslog_message_source']
+      target_label: 'source'
+      
 
 
