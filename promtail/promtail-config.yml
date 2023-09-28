@@ -58,56 +58,16 @@ scrape_configs:
 
 # thank you chatgpt!
   - job_name: edge_router_syslog
-    pipeline_stages:
-    - regex:
-        # expression: '(?P<date>\w+ \d+ \d+:\d+:\d+) (?P<host>\w+) (?P<kernel>\w+) (?P<message_id>\w+): \[(?P<rule>\w+)\]IN=(?P<in>\w+) OUT=(?P<out>\w*) MAC=(?P<mac>[\w:]+) SRC=(?P<src>[\d.]+) DST=(?P<dst>[\d.]+) LEN=(?P<len>\d+) TOS=(?P<tos>[\w.]+) PREC=(?P<prec>[\w.]+) TTL=(?P<ttl>\d+) ID=(?P<id>\d+) PROTO=(?P<proto>\w+) SPT=(?P<spt>\d+) DPT=(?P<dpt>\d+) WINDOW=(?P<window>\d+) RES=(?P<res>[\w.]+) (?P<flags>[A-Z ]+) URGP=(?P<urgp>\d+)$'
-        expression: '(?P<date>\w+ \d+ \d+:\d+:\d+) (?P<host>\b\w+-\w+-\w+-\w+-\w+\b) (?P<source>\w+): \[(?P<policy>.+)\]IN=(?P<inbound>\w+) OUT=(?P<outbound>\a*)'
-    - labels:
-        date:
-        host:
-        source:
-        policy:
-        inbound:
-        outbound:
     syslog:
       listen_address: 0.0.0.0:1514 # the address and port to listen for syslog messages
       idle_timeout: 60s # the timeout for idle connections
       label_structured_data: yes # whether to add structured data as labels
       labels: # static labels to add to every log entry
         job: "edge_router_syslog"
-        ver: "1.6"
-    #     source:
-    #     # priority:
-    #     # version:
-    #     # date:
-    #     # router:
-    #     # kernel:
-    #     # message_id:
-    #     # rule:
-    #     # in:
-    #     # out:
-    #     # mac:
-    #     # src:
-    #     # dst:
-    #     # len:
-    #     # tos:
-    #     # prec:
-    #     # ttl:
-    #     # id:
-    #     # proto:
-    #     # spt:
-    #     # dpt:
-    #     # window:
-    #     # res:
-    #     # flags:
-    #     # urgp: 
-    relabel_configs: # relabeling rules to apply to the log entries
-    - source_labels: ['__syslog_message_hostname']
-      target_label: 'host'
-    # - source_labels: ['__syslog_message_rule']
-    #   target_label: 'rule'
-    # - source_labels: ['__syslog_message_source']
-    #   target_label: 'source'
+        ver: "1.61"
+        __syslog_connection_ip_address:
+        __syslog_connection_hostname:
+        
       
 
 
