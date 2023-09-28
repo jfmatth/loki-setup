@@ -46,12 +46,58 @@ scrape_configs:
 #       target_label: 'host'
 
 # Taken from https://alexandre.deverteuil.net/post/syslog-relay-for-loki/
-  - job_name: syslog
+  # - job_name: syslog
+  #   syslog:
+  #     listen_address: 0.0.0.0:1514
+  #     idle_timeout: 60s
+  #     labels:
+  #       job: syslog
+  #   relabel_configs:
+  #     - source_labels: [__syslog_message_hostname]
+  #       target_label: host
+
+# thank you chatgpt!
+  - job_name: edge_router_syslog
     syslog:
-      listen_address: 0.0.0.0:1514
-      idle_timeout: 60s
-      labels:
-        job: syslog
-    relabel_configs:
-      - source_labels: [__syslog_message_hostname]
-        target_label: host
+      listen_address: 0.0.0.0:1514 # the address and port to listen for syslog messages
+      idle_timeout: 60s # the timeout for idle connections
+      label_structured_data: yes # whether to add structured data as labels
+      labels: # static labels to add to every log entry
+        job: "edge_router_syslog"
+    relabel_configs: # relabeling rules to apply to the log entries
+    - source_labels: ['__syslog_message_hostname']
+      target_label: 'host'
+    - source_labels: ['__syslog_message_severity']
+      target_label: 'severity'
+    - source_labels: ['__syslog_message_facility']
+      target_label: 'facility'
+    pipeline_stages:
+    - regex:
+        expression: '^<(?P<priority>\d+)>(?P<version>\d+) (?P<date>\w+ \d+ \d+:\d+:\d+) (?P<router>\w+) (?P<kernel>\w+) (?P<message_id>\w+): \[(?P<rule>\w+)\]IN=(?P<in>\w+) OUT=(?P<out>\w*) MAC=(?P<mac>[\w:]+) SRC=(?P<src>[\d.]+) DST=(?P<dst>[\d.]+) LEN=(?P<len>\d+) TOS=(?P<tos>[\w.]+) PREC=(?P<prec>[\w.]+) TTL=(?P<ttl>\d+) ID=(?P<id>\d+) PROTO=(?P<proto>\w+) SPT=(?P<spt>\d+) DPT=(?P<dpt>\d+) WINDOW=(?P<window>\d+) RES=(?P<res>[\w.]+) (?P<flags>[A-Z ]+) URGP=(?P<urgp>\d+)$'
+    - labels:
+        priority:
+        version:
+        date:
+        router:
+        kernel:
+        message_id:
+        rule:
+        in:
+        out:
+        mac:
+        src:
+        dst:
+        len:
+        tos:
+        prec:
+        ttl:
+        id:
+        proto:
+        spt:
+        dpt:
+        window:
+        res:
+        flags:
+        urgp: 
+
+
