@@ -59,7 +59,7 @@ scrape_configs:
   - job_name: edge_router_syslog
     pipeline_stages:
     - regex:
-        expression: '(?P<all>.*?)'
+        expression: '\[(?P<rule>.*)\](?P<all>.*)'
     - labels:
         rule:
         all:
