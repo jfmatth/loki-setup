@@ -60,12 +60,16 @@ scrape_configs:
     pipeline_stages:
     - regex:
         # expression: '\[(?P<rule>.*)\](?P<all>.*)'
-        expression: '\[(?P<rule>.*)\](?P<inport>IN=\w*) (?P<outport>OUT=\w*)(?P<all>.*)'
+        expression: '\[(?P<rule>.*)\]IN=(?P<inport>\w*) OUT=(?P<outport>\w*) MAC=(?P<macaddress>[\w:]+) SRC=(?P<sourceip>[\d.]+) DST=(?P<destinationip>[\d.]+) LEN=(?P<length>\d+)'
     - labels:
         rule:
         inport:
         outport:
-        all:
+        macaddress:
+        sourceip:
+        destinationip:
+        length:
+        
     syslog:
       listen_address: 0.0.0.0:1514 # the address and port to listen for syslog messages
       idle_timeout: 60s # the timeout for idle connections
