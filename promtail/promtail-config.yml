@@ -57,14 +57,12 @@ scrape_configs:
   #       target_label: host
 
   - job_name: edge_router_syslog
-
     pipeline_stages:
     - regex:
         expression: '\[(?P<rule>\w+)\](?P<all>.*)'
     - labels:
         rule:
         all:
-
     syslog:
       listen_address: 0.0.0.0:1514 # the address and port to listen for syslog messages
       idle_timeout: 60s # the timeout for idle connections
@@ -74,17 +72,17 @@ scrape_configs:
         ver: "1.62"
 
 
-# thank you chatgpt!
-  - job_name: edge_router_syslog
-    syslog:
-      listen_address: 0.0.0.0:1514 # the address and port to listen for syslog messages
-      idle_timeout: 60s # the timeout for idle connections
-      label_structured_data: yes # whether to add structured data as labels
-      labels: # static labels to add to every log entry
-        job: "edge_router_syslog"
-        ver: "1.61"
-        __syslog_connection_ip_address:
-        __syslog_connection_hostname:
+# # thank you chatgpt!
+#   - job_name: edge_router_syslog
+#     syslog:
+#       listen_address: 0.0.0.0:1514 # the address and port to listen for syslog messages
+#       idle_timeout: 60s # the timeout for idle connections
+#       label_structured_data: yes # whether to add structured data as labels
+#       labels: # static labels to add to every log entry
+#         job: "edge_router_syslog"
+#         ver: "1.61"
+#         __syslog_connection_ip_address:
+#         __syslog_connection_hostname:
         
       
 
