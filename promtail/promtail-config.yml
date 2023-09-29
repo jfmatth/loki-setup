@@ -76,7 +76,7 @@ scrape_configs:
       label_structured_data: yes # whether to add structured data as labels
       labels: # static labels to add to every log entry
         job: "edge_router_syslog"
-        ver: "1.63"
+        ver: "1.65"
 
 
 # # thank you chatgpt!
