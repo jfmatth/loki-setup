@@ -1,7 +1,7 @@
 server:
   http_listen_port: 9080
   grpc_listen_port: 0
-  # log_level: "warn"
+  #log_level: "debug"
 
 positions:
   filename: /tmp/positions.yaml
@@ -58,27 +58,27 @@ scrape_configs:
   #     - source_labels: [__syslog_message_hostname]
   #       target_label: host
 
-  - job_name: edge_router_syslog
-    pipeline_stages:
-    - regex:
-        # expression: '\[(?P<rule>.*)\](?P<all>.*)'
-        expression: '\[(?P<rule>.*)\]IN=(?P<inport>\w*) OUT=(?P<outport>\w*) MAC=(?P<macaddress>[\w:]+) SRC=(?P<sourceip>[\d.]+) DST=(?P<destinationip>[\d.]+) LEN=(?P<length>\d+)'
-    - labels:
-        rule:
-        inport:
-        outport:
-        macaddress:
-        sourceip:
-        destinationip:
-        length:
-        
+  - job_name: rsyslog
+    # pipeline_stages:
+    # - regex:
+    #     # expression: '\[(?P<rule>.*)\](?P<all>.*)'
+    #     expression: '\[(?P<rule>.*)\]IN=(?P<inport>\w*) OUT=(?P<outport>\w*) MAC=(?P<macaddress>[\w:]+) SRC=(?P<sourceip>[\d.]+) DST=(?P<destinationip>[\d.]+) LEN=(?P<length>\d+)'
+    # - labels:
+    #     rule:
+    #     inport:
+    #     outport:
+    #     macaddress:
+    #     sourceip:
+    #     destinationip:
+    #     length:
+  
     syslog:
       listen_address: 0.0.0.0:1514 # the address and port to listen for syslog messages
       idle_timeout: 60s # the timeout for idle connections
       label_structured_data: yes # whether to add structured data as labels
       labels: # static labels to add to every log entry
-        job: "edge_router_syslog"
-        ver: "1.65"
+        job: "syslog"
+        ver: "1.67"
 
 
 # # thank you chatgpt!
