@@ -41,6 +41,11 @@ input(type="imtcp" port="514" ruleset="remote")
 ```
 docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
 ```
+## Clone this repo
+```
+git clone https://github.com/jfmatth/loki-setup.git
+cd loki-setup
+```
 
 ## Create grafana folder
 ```
