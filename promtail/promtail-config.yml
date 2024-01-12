@@ -8,9 +8,7 @@ positions:
 
 
 clients:
-  # - url: http://loki:3100/loki/api/v1/push
-  - url: https://11873:glc_eyJvIjoiNDU1MjYwIiwibiI6InN0YWNrLTE2MzkxOC1pbnRlZ3JhdGlvbi1yc3lzbG9nLWhvbWUiLCJrIjoiaTQzN0tkdjcxQno2dng5QW42MFdKUUUyIiwibSI6eyJyIjoidXMifX0=@logs-prod-us-central1.grafana.net/api/prom/push
-
+  - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
 
