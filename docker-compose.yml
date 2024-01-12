@@ -2,19 +2,19 @@ version: "3"
 networks:
   loki:
 services:
-  # loki:
-  #   image: grafana/loki:2.4.0
-  #   volumes:
-  #     - ./loki:/etc/loki
-  #   ports:
-  #     - "3100:3100"
-  #   restart: unless-stopped
-  #   command: -config.file=/etc/loki/loki-config.yml -print-config-stderr
-  #   networks:
-  #     - loki
+  loki:
+    image: grafana/loki:latest
+    volumes:
+      - ./loki:/etc/loki
+    ports:
+      - "3100:3100"
+    restart: unless-stopped
+    command: -config.file=/etc/loki/loki-config.yml -print-config-stderr
+    networks:
+      - loki
 
   promtail:
-    image: grafana/promtail:2.4.0
+    image: grafana/promtail:latest
     volumes:
       - /var/log:/var/log
       - ./promtail:/etc/promtail
@@ -25,14 +25,14 @@ services:
     networks:
       - loki
 
-  # grafana:
-  #   image: grafana/grafana-oss:latest
-  #   user: "1000"
-  #   volumes:
-  #   - ./grafana:/var/lib/grafana
-  #   ports:
-  #     - "3000:3000"
-  #   restart: unless-stopped
-  #   networks:
-  #     - loki
+  grafana:
+    image: grafana/grafana-oss:latest
+    user: "1000"
+    volumes:
+    - ./grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - loki
 
